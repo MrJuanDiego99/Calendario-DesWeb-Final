@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block titulo %}
+integrantes
+{% endblock titulo %}
+{% block contenido %}  
+    <div class="container my-5">
+        <h3>Integrantes</h3>
+        <div class="container">
+            {% for nombre in integrantes %}
+                <div class="row">
+                    <div class="col-12">
+                        <p>{{nombre}}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock contenido %}   

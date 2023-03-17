@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block titulo %}
+    registrarse
+{% endblock titulo %}
+{% block contenido %}
+    <div class="container my-3">
+        <div class="col-12">
+            <h5>Registrarse</h5>
+            <form action="{% url 'registro' %}" method='POST'>
+                {% csrf_token %}
+                <div class="mb-3 col-4">
+                    <input type="text"
+                           class="form-control"
+                           name="first_name"
+                           required
+                           autocomplete="off"
+                           autofocus
+                           placeholder="Nombre"/>
+                </div>
+                <div class="mb-3 col-4">
+                    <input type="text"
+                           class="form-control"
+                           name="last_name"
+                           required
+                           autocomplete="off"
+                           autofocus
+                           placeholder="Apellido"/>
+                </div>
+                <div class="mb-3 col-4">
+                    <input type="text"
+                           class="form-control"
+                           name="username"
+                           required
+                           autocomplete="off"
+                           autofocus
+                           placeholder="Usuario"/>
+                </div>
+                <div class="mb-3 col-4">
+                    <input type="email"
+                           class="form-control"
+                           name="email"
+                           required
+                           autocomplete="off"
+                           autofocus
+                           placeholder="Email"/>
+                </div>
+                <div class="mb-3 col-4">
+                    <input type="password"
+                           class="form-control"
+                           name="password"
+                           required
+                           autocomplete="off"
+                           autofocus
+                           placeholder="Contraseña"/>
+                </div>
+                <div class="mb-3 col-4">
+                    <input type="submit" class="btn btn-primary" value="Registrarse"/>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock contenido %}

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block contenido %}
+    <div class="container py-3">
+        <h4>Objetivos</h4>
+        <div class="container">
+            {% if objetivos|length > 0 %}
+                {% for fecha, objetivo in objetivos.items %}
+                    <div class="card {% if not objetivo.1 %}disabled{% endif %} mb-3">
+                        <div class="card-header d-flex justify-content-between">
+                            {% with fecha_inicio=fecha|slice:':10' %}
+                                <h5>Fecha inicio: {{ fecha_inicio }}</h5>
+                            {% endwith %}
+                            {% with fecha_fin=fecha|slice:'13:' %}
+                                <h5>Fecha fin: {{ fecha_fin }}</h5>
+                            {% endwith %}
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="col-2">Objetivo</th>
+                                        <th>Días</th>
+                                        <th class="col-2">Estado</th>
+                                        <th class="col-2">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for obj in objetivo.0 %}
+                                        <tr>
+                                            <td>{{ obj.descripcion }}</td>
+                                            <td>
+                                                <table class="table table-bordered">
+                                                    <tr>
+                                                        <th>L</th>
+                                                        <th>M</th>
+                                                        <th>M</th>
+                                                        <th>J</th>
+                                                        <th>V</th>
+                                                        <th>S</th>
+                                                        <th>D</th>
+                                                    </tr>
+                                                    <tbody>
+                                                        <tr>
+                                                            {% for n in obj.contador %}
+                                                                {% if n > 0 %}
+                                                                    <td>si</td>
+                                                                {% else %}
+                                                                    <td>no</td>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                            <td>
+                                                {% if obj.cumplidos > 6 %}
+                                                    <span class="badge bg-success">Cumplido</span>
+                                                {% else %}
+                                                    <span class="badge bg-danger">No cumplido</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <form action="{% url 'cumplir' obj.id %}">
+                                                    {% csrf_token %}
+                                                    <button type="submit"
+                                                            class="btn btn-primary"
+                                                            {% if obj.cumplidos > 6 %}disabled{% endif %}>Cumplir</button>
+                                                </form>
+                                                <form action="{% url 'eliminar' obj.id %}">
+                                                    {% csrf_token %}
+                                                    <button type="submit"
+                                                            class="btn btn-danger"
+                                                            >Eliminar</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No hay objetivos registrados</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock contenido %}

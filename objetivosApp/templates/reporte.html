@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block titulo %}
+    reporte
+{% endblock titulo %}
+{% block contenido %}
+    <div class="container my-3">
+        {% for key, objetivo in objetivos.items %}
+            <table class="table table-bordered table-info table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Cumplidos</th>
+                        <th scope="col">No Cumplidos</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ key }}</td>
+                        <td>{{ objetivo.1.cumplidos }}</td>
+                        <td>{{ objetivo.1.no_cumplidos }}</td>
+                        <td>{{ objetivo.1.total }}</td>
+                    </tr>
+                </tbody>
+            {% endfor %}
+        </div>
+    {% endblock contenido %}
